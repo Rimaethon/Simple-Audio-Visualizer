@@ -1,130 +1,55 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Linq;
 
-public class AudioSpectrum : MonoBehaviour
+namespace Rimaethon._Scripts.MusicSync
 {
-    #region Public variables
-    public float fallSpeed = 0.08f;
-    public float sensibility = 8.0f;
-    #endregion
-
-    #region Private variables
-    private float[] rawSpectrum;
-    public float[] levels;
-    private float[] peakLevels;
-    private float[] meanLevels;
-    private float meanLevel;
-
-    // Set band type
-    private float[] middleFrequencies = new float[] {
-        100, 400, 700, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500,
-        9000, 9500, 10000, 10500, 11000
-    };
-
-    private float bandwidth = 1.414f;
-    private float levelScaler = 1f;
-    #endregion
-
-    #region Public property
-    public float[] Levels => levels;
-
-    public float[] PeakLevels => peakLevels;
-
-    public float MeanLevel => meanLevel;
-    #endregion
-
-    void Update()
+    public class AudioSpectrum : MonoBehaviour
     {
-        CheckBuffers();
-        GetSpectrumData();
-        CalculateLevels();
-        SaveSpectrumDataToFile();
-    }
+        private const int NumberOfBands = 10;
+        private const int TotalSampleSize = 1024;
+        private const int SamplesToConsider = 198;
+        private const float ScaleMin = 0.1f;
+        private const float ScaleMax = 25f;
 
-    void SaveSpectrumDataToFile()
-    {
-        // Create a list to store frequency-amplitude pairs
-        var frequencyAmplitudePairs = new List<KeyValuePair<float, float>>();
+        private float[] _audioSpectrum;
 
-        // Populate the list with frequencies and their amplitudes
-        for (int i = 0; i < rawSpectrum.Length; i++)
+        private float[] _frequencies = new float[]
+        { 25.0f, 31.5f, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000,
+            2500, 3150, 4000
+        };
+        [SerializeField] private Visualizer[] visualizers;
+
+        private void Awake()
         {
-            float frequency = i * AudioSettings.outputSampleRate / 2.0f / rawSpectrum.Length;
-            if (frequency <= 20000)  // Only consider frequencies up to 20000 Hz
+            _audioSpectrum = new float[TotalSampleSize];
+        }
+
+        private void Update()
+        {
+            AudioListener.GetSpectrumData(_audioSpectrum, 0, FFTWindow.BlackmanHarris);
+            ProcessBands();
+            var i = Mathf.FloorToInt (25 / AudioSettings.outputSampleRate * 2.0f * _audioSpectrum.Length);
+            Debug.Log(AudioSettings.outputSampleRate);
+        }
+
+        private void ProcessBands()
+        {
+            int remainingSamples = SamplesToConsider;
+            int startSample = 0;
+
+            for (int band = 0; band < NumberOfBands; band++)
             {
-                frequencyAmplitudePairs.Add(new KeyValuePair<float, float>(frequency, rawSpectrum[i]));
+                int samplesPerBand = 3 + (band * 3);
+                samplesPerBand = Mathf.Min(samplesPerBand, remainingSamples); // Ensure we don't exceed the remaining samples
+                remainingSamples -= samplesPerBand;
+                
+                float averageAmplitude = _audioSpectrum.Skip(startSample).Take(samplesPerBand).Average();
+                float scaledAmplitude = Mathf.Clamp(averageAmplitude * 100, ScaleMin, ScaleMax);
+
+                visualizers[band].UpdateVisualizer(scaledAmplitude);
+
+                startSample += samplesPerBand;
             }
         }
-
-        // Sort the list in descending order of amplitude
-        frequencyAmplitudePairs.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
-
-        // Write the sorted list to the file
-        using (var writer = new System.IO.StreamWriter("C:/Unity Projects/Pace-Maker/Assets/Rimaethon/_Scripts/UI/spectrum.txt"))
-        {
-            foreach (var pair in frequencyAmplitudePairs)
-            {
-                writer.WriteLine($"{pair.Key} Hz: {pair.Value}");
-            }
-        }
-    }
-
-    void GetSpectrumData()
-    {
-        AudioListener.GetSpectrumData(rawSpectrum, 0, FFTWindow.BlackmanHarris);
-    }
-
-    void CalculateLevels()
-    {
-        var falldown = fallSpeed * Time.deltaTime;
-        var filter = Mathf.Exp(-sensibility * Time.deltaTime);
-        float totalLevel = 0;
-
-        for (var bandIndex = 0; bandIndex < levels.Length; bandIndex++)
-        {
-            int minFrequencyIndex = FrequencyToSpectrumIndex(middleFrequencies[bandIndex] / bandwidth);
-            int maxFrequencyIndex = FrequencyToSpectrumIndex(middleFrequencies[bandIndex] * bandwidth);
-
-            var bandMax = CalculateBandMax(minFrequencyIndex, maxFrequencyIndex);
-            levels[bandIndex] = bandMax * levelScaler;
-            peakLevels[bandIndex] = Mathf.Max(peakLevels[bandIndex] - falldown, bandMax)*levelScaler;
-            meanLevels[bandIndex] = bandMax - (bandMax - meanLevels[bandIndex]) * filter*levelScaler;
-
-            totalLevel += levels[bandIndex];
-        }
-
-        meanLevel = totalLevel / levels.Length;
-    }
-    
-    void CheckBuffers()
-    {
-        int numberOfSamples = 1024;  // Set number of samples
-
-        if (rawSpectrum == null || rawSpectrum.Length != numberOfSamples)
-        {
-            rawSpectrum = new float[numberOfSamples];
-        }
-
-        if (levels == null || levels.Length != middleFrequencies.Length)
-        {
-            levels = new float[middleFrequencies.Length];
-            peakLevels = new float[middleFrequencies.Length];
-            meanLevels = new float[middleFrequencies.Length];
-        }
-    }
-    int FrequencyToSpectrumIndex (float frequency)
-    {
-        var index = Mathf.FloorToInt(frequency / AudioSettings.outputSampleRate * 2.0f * rawSpectrum.Length);
-        return Mathf.Clamp(index, 0, rawSpectrum.Length - 1);
-    }
-    float CalculateBandMax(int minFrequencyIndex, int maxFrequencyIndex)
-    {
-        var bandMax = 0.0f;
-        for (var frequencyIndex = minFrequencyIndex; frequencyIndex <= maxFrequencyIndex; frequencyIndex++)
-        {
-            bandMax = Mathf.Max(bandMax, rawSpectrum[frequencyIndex]);
-        }
-
-        return bandMax;
     }
 }
