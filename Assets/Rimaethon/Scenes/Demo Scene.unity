@@ -274,20 +274,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 225644851}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7792d951428e593408054dc529a94b93, type: 3}
+  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualizers:
-  - {fileID: 1587048157}
-  - {fileID: 2065393459}
-  - {fileID: 2012360356}
-  - {fileID: 744488168}
-  - {fileID: 958628024}
-  - {fileID: 355678935}
-  - {fileID: 830292354}
-  - {fileID: 1090171514}
-  - {fileID: 1338772339}
-  - {fileID: 1968939230}
 --- !u!1 &303023001
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +431,6 @@ GameObject:
   - component: {fileID: 355678932}
   - component: {fileID: 355678934}
   - component: {fileID: 355678933}
-  - component: {fileID: 355678935}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -508,19 +496,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355678931}
   m_CullTransparentMesh: 1
---- !u!114 &355678935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355678931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 3
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +601,6 @@ GameObject:
   - component: {fileID: 744488165}
   - component: {fileID: 744488167}
   - component: {fileID: 744488166}
-  - component: {fileID: 744488168}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -692,19 +666,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744488164}
   m_CullTransparentMesh: 1
---- !u!114 &744488168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744488164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 3
 --- !u!1 &830292350
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +677,6 @@ GameObject:
   - component: {fileID: 830292351}
   - component: {fileID: 830292353}
   - component: {fileID: 830292352}
-  - component: {fileID: 830292354}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -782,19 +742,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830292350}
   m_CullTransparentMesh: 1
---- !u!114 &830292354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830292350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 3
 --- !u!1 &958628020
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,7 +753,6 @@ GameObject:
   - component: {fileID: 958628021}
   - component: {fileID: 958628023}
   - component: {fileID: 958628022}
-  - component: {fileID: 958628024}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -872,19 +818,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 958628020}
   m_CullTransparentMesh: 1
---- !u!114 &958628024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958628020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 3
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +921,6 @@ GameObject:
   - component: {fileID: 1090171511}
   - component: {fileID: 1090171513}
   - component: {fileID: 1090171512}
-  - component: {fileID: 1090171514}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -1054,19 +986,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090171510}
   m_CullTransparentMesh: 1
---- !u!114 &1090171514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090171510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 3
 --- !u!1 &1338772337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,7 +997,6 @@ GameObject:
   - component: {fileID: 1338772338}
   - component: {fileID: 1338772341}
   - component: {fileID: 1338772340}
-  - component: {fileID: 1338772339}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -1106,19 +1024,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 197.43, y: 70}
   m_Pivot: {x: 0.5, y: 0.00000010803342}
---- !u!114 &1338772339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338772337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 10
 --- !u!114 &1338772340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1168,7 +1073,6 @@ GameObject:
   - component: {fileID: 1587048153}
   - component: {fileID: 1587048156}
   - component: {fileID: 1587048155}
-  - component: {fileID: 1587048157}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -1234,19 +1138,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587048152}
   m_CullTransparentMesh: 1
---- !u!114 &1587048157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1587048152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 3
 --- !u!1 &1796385043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,6 +1149,7 @@ GameObject:
   - component: {fileID: 1796385044}
   - component: {fileID: 1796385045}
   - component: {fileID: 1796385046}
+  - component: {fileID: 1796385047}
   m_Layer: 5
   m_Name: Sound Visualiser
   m_TagString: Untagged
@@ -1390,6 +1282,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1796385047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796385043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7792d951428e593408054dc529a94b93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  peakLevels: []
 --- !u!1 &1968939228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,7 +1306,6 @@ GameObject:
   - component: {fileID: 1968939229}
   - component: {fileID: 1968939232}
   - component: {fileID: 1968939231}
-  - component: {fileID: 1968939230}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -1429,19 +1333,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 197.43, y: 70}
   m_Pivot: {x: 0.5, y: 0.00000010803342}
---- !u!114 &1968939230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968939228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 10
 --- !u!114 &1968939231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1491,7 +1382,6 @@ GameObject:
   - component: {fileID: 2012360353}
   - component: {fileID: 2012360355}
   - component: {fileID: 2012360354}
-  - component: {fileID: 2012360356}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -1557,19 +1447,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012360352}
   m_CullTransparentMesh: 1
---- !u!114 &2012360356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2012360352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 3
 --- !u!1 &2065393455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,7 +1458,6 @@ GameObject:
   - component: {fileID: 2065393456}
   - component: {fileID: 2065393458}
   - component: {fileID: 2065393457}
-  - component: {fileID: 2065393459}
   m_Layer: 5
   m_Name: audiosyncer_bar
   m_TagString: Untagged
@@ -1647,16 +1523,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065393455}
   m_CullTransparentMesh: 1
---- !u!114 &2065393459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065393455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedfeb9576064ff489604f76dcfc8be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleMultiplier: 3
