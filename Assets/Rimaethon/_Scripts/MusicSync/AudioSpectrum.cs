@@ -1,55 +1,99 @@
 ﻿using UnityEngine;
-using System.Linq;
+
 
 namespace Rimaethon._Scripts.MusicSync
 {
     public class AudioSpectrum : MonoBehaviour
     {
-        private const int NumberOfBands = 10;
+        #region Fields
+
         private const int TotalSampleSize = 1024;
-        private const int SamplesToConsider = 198;
-        private const float ScaleMin = 0.1f;
-        private const float ScaleMax = 25f;
+        private const float FallSpeed = 0.5f;
+        private const float Sensibility = 15.0f;
+        private float[] _levels;
+        private float[] _rawSpectrumData;
+        private readonly float[] _frequencies = new float[] {25.0f,50,100,200,300,400,800,1600,3200,6400,};
+        private const float  Bandwidth=2f;
+        private float[] _peakLevels;
+        private float[] _meanLevels;
+        
+        #endregion
 
-        private float[] _audioSpectrum;
+        #region Properties
+        
+        public float[] Levels => _levels;
+        public float[] PeakLevels => _peakLevels;
+        public float[] MeanLevels => _meanLevels;
 
-        private float[] _frequencies = new float[]
-        { 25.0f, 31.5f, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000,
-            2500, 3150, 4000
-        };
-        [SerializeField] private Visualizer[] visualizers;
+        #endregion
+        
+       
 
+
+        
+        #region Monobehaviour functions
+       
         private void Awake()
         {
-            _audioSpectrum = new float[TotalSampleSize];
+            CheckBuffers ();
+
         }
 
-        private void Update()
+        void Update ()
         {
-            AudioListener.GetSpectrumData(_audioSpectrum, 0, FFTWindow.BlackmanHarris);
-            ProcessBands();
-            var i = Mathf.FloorToInt (25 / AudioSettings.outputSampleRate * 2.0f * _audioSpectrum.Length);
-            Debug.Log(AudioSettings.outputSampleRate);
+            CheckBuffers ();
+
+            AudioListener.GetSpectrumData (_rawSpectrumData, 0, FFTWindow.BlackmanHarris);
+            
+            FindFrequencyAmplitudes ();
+
         }
-
-        private void ProcessBands()
+        #endregion
+        
+        
+        
+        #region Private Functions
+        int FrequencyToSpectrumIndex (float frequency)
         {
-            int remainingSamples = SamplesToConsider;
-            int startSample = 0;
-
-            for (int band = 0; band < NumberOfBands; band++)
-            {
-                int samplesPerBand = 3 + (band * 3);
-                samplesPerBand = Mathf.Min(samplesPerBand, remainingSamples); // Ensure we don't exceed the remaining samples
-                remainingSamples -= samplesPerBand;
-                
-                float averageAmplitude = _audioSpectrum.Skip(startSample).Take(samplesPerBand).Average();
-                float scaledAmplitude = Mathf.Clamp(averageAmplitude * 100, ScaleMin, ScaleMax);
-
-                visualizers[band].UpdateVisualizer(scaledAmplitude);
-
-                startSample += samplesPerBand;
+            var floatingIndex = Mathf.FloorToInt (frequency / AudioSettings.outputSampleRate * 2.0f * _rawSpectrumData.Length);
+            return Mathf.Clamp (floatingIndex, 0, _rawSpectrumData.Length - 1);
+        }
+        
+        void CheckBuffers ()
+        {
+            if (_rawSpectrumData == null || _rawSpectrumData.Length != TotalSampleSize) {
+                _rawSpectrumData = new float[TotalSampleSize];
+            }
+            var bandCount = _frequencies.Length;
+            if (_levels == null || _levels.Length != bandCount) {
+                _levels = new float[bandCount];
+                _peakLevels = new float[bandCount];
+                _meanLevels = new float[bandCount];
             }
         }
+        
+        void FindFrequencyAmplitudes ()
+        {
+            
+            float fallDown = FallSpeed * Time.deltaTime;
+            float filter = Mathf.Exp (-Sensibility * Time.deltaTime);
+            
+            for (int i = 0; i < _levels.Length; i++) {
+                int iMin = FrequencyToSpectrumIndex (_frequencies [i] / Bandwidth);
+                int iMax = FrequencyToSpectrumIndex (_frequencies [i] * Bandwidth);
+
+                var bandMax = 0.0f;
+                for (int j = iMin; j <= iMax; j++) {
+                    bandMax = Mathf.Max (bandMax, _rawSpectrumData [j]);
+                }
+
+                _levels [i] = bandMax;
+                _peakLevels [i] = Mathf.Max (_peakLevels [i] - fallDown, bandMax);
+                _meanLevels [i] = bandMax - (bandMax - _meanLevels [i]) * filter;
+            }
+        }
+
+        #endregion
+
     }
 }
