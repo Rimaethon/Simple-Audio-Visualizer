@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace Rimaethon._Scripts.MusicSync
@@ -12,7 +13,7 @@ namespace Rimaethon._Scripts.MusicSync
         private const float Sensibility = 15.0f;
         private float[] _levels;
         private float[] _rawSpectrumData;
-        private readonly float[] _frequencies = new float[] {25.0f,50,100,200,300,400,800,1600,3200,6400,};
+        public float[] _frequencies = new float[] {};
         private const float  Bandwidth=2f;
         private float[] _peakLevels;
         private float[] _meanLevels;
@@ -33,7 +34,8 @@ namespace Rimaethon._Scripts.MusicSync
         
         #region Monobehaviour functions
        
-        private void Awake()
+        
+        private void Start()
         {
             CheckBuffers ();
 
