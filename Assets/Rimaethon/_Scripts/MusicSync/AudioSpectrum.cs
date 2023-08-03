@@ -13,7 +13,7 @@ namespace Rimaethon._Scripts.MusicSync
         private const float Sensibility = 15.0f;
         private float[] _levels;
         private float[] _rawSpectrumData;
-        public float[] _frequencies = new float[] {};
+        private float[] _frequencies = new float[] {25f,50f,100f,200f,400f,600f,800f,1600f,3200f,6400f};
         private const float  Bandwidth=2f;
         private float[] _peakLevels;
         private float[] _meanLevels;
