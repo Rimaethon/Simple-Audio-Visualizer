@@ -5,22 +5,26 @@ namespace Rimaethon._Scripts.MusicSync
     public class Visualizer : MonoBehaviour
     {
         private AudioSpectrum _audioSpectrum;
-        [SerializeField] private float frequencyToListen;
-
+        private float scaleHolder;
         private void Awake()
         {
             _audioSpectrum = GetComponentInParent<AudioSpectrum>();
-            _audioSpectrum._frequencies = new float[] {frequencyToListen};
             
         }
         
         
         private void Update()
         {
-            
-                var scale = _audioSpectrum.PeakLevels[0]*100 ;
-                transform.localScale = new Vector3(1, scale, 1);
-            
+
+            for (int i = 0; i < _audioSpectrum.PeakLevels.Length; i++)
+            {
+                float scale = _audioSpectrum.PeakLevels[i]*100 ;
+                scaleHolder=Mathf.Lerp(transform.GetChild(i).localScale.y, scale, Time.deltaTime * 10f);
+                transform.GetChild(i).localScale =new Vector3(1,scaleHolder,1); 
+                
+            }
+                
+
         }
 
 
