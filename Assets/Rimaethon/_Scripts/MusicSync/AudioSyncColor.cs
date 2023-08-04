@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Rimaethon._Scripts.MusicSync
 {
-    public interface IAudioSpectrumProvider
+    public partial interface IAudioSpectrumProvider
     {
         float GetPeakLevel(int index);
     }
@@ -15,7 +15,6 @@ namespace Rimaethon._Scripts.MusicSync
         [SerializeField] private float frequencyToListen;
         private float normalizedPeakLevel;
 
-        // Dependency Injection through the Awake method
         private void Awake()
         {
             _audioSpectrumProvider = GetComponentInParent<IAudioSpectrumProvider>();
