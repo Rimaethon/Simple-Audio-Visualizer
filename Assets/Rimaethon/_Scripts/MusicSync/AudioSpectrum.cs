@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Rimaethon._Scripts.MusicSync
 {
-    public class AudioSpectrum : MonoBehaviour
+    public class AudioSpectrum : MonoBehaviour, IAudioSpectrumProvider
     {
         #region Fields
 
@@ -28,7 +28,24 @@ namespace Rimaethon._Scripts.MusicSync
 
         #endregion
         
+        public float GetPeakLevel(int index)
+        {
+            if (index >= 0 && index < _peakLevels.Length)
+            {
+                return _peakLevels[index];
+            }
+            return 0f; 
+        }
        
+        public float GetMeanLevel(int index)
+        {
+            if (index >= 0 && index < _meanLevels.Length)
+            {
+                return _meanLevels[index];
+            }
+            return 0f;
+        }
+
 
 
         
