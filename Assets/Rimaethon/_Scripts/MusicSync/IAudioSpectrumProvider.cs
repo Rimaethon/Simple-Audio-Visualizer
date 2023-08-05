@@ -1,7 +1,8 @@
 namespace Rimaethon._Scripts.MusicSync
 {
-    public partial interface IAudioSpectrumProvider
+    public interface IAudioSpectrumProvider
     {
         float GetPeakLevel(int index);
+        float GetMeanLevel(int index);
     }
 }
