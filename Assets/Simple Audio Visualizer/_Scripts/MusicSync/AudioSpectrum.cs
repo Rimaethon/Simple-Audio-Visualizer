@@ -21,6 +21,14 @@ namespace Simple_Audio_Visualizer._Scripts.MusicSync
 
         #endregion
 
+        #region Properties
+        
+        public float[] Levels => _levels;
+        public float[] PeakLevels => _peakLevels;
+        public float[] MeanLevels => _meanLevels;
+        
+        #endregion
+
 
         #region Monobehaviour functions
 
@@ -28,8 +36,6 @@ namespace Simple_Audio_Visualizer._Scripts.MusicSync
         {
             CheckBuffers();
         }
-
-
         private void Update()
         {
             CheckBuffers();
