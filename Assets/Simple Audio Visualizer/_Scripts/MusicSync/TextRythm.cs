@@ -8,7 +8,36 @@ namespace Simple_Audio_Visualizer._Scripts.MusicSync
 {
     public class TextRythm : MonoBehaviour
     {
-        #region Private Functions
+      
+        
+        #region MonoBehaviour Functions
+
+        private void Awake()
+        {
+            _textComponent = GetComponent<TMP_Text>();
+            _audioSpectrumProvider = GetComponentInParent<IAudioSpectrumProvider>();
+            if (_audioSpectrumProvider == null) Debug.Log("Audio Spectrum provider Is Null ");
+        }
+
+        private void OnEnable()
+        {
+            TMPro_EventManager.TEXT_CHANGED_EVENT.Add(ON_TEXT_CHANGED);
+        }
+
+        private void OnDisable()
+        {
+            TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
+        }
+
+
+        private void Start()
+        {
+            StartCoroutine(AnimateVertexColors());
+        }
+
+        #endregion
+
+        #region Custom Functions
 
         private void ON_TEXT_CHANGED(Object obj)
         {
@@ -17,7 +46,6 @@ namespace Simple_Audio_Visualizer._Scripts.MusicSync
         }
 
         #endregion
-
 
         #region Enumerators
 
@@ -153,33 +181,5 @@ namespace Simple_Audio_Visualizer._Scripts.MusicSync
         #endregion
 
 
-        #region MonoBehaviour Functions
-
-        private void Awake()
-        {
-            _textComponent = GetComponent<TMP_Text>();
-            _audioSpectrumProvider = GetComponentInParent<IAudioSpectrumProvider>();
-            if (_audioSpectrumProvider == null) Debug.Log("Audio Spectrum provider Is Null ");
-        }
-
-        private void OnEnable()
-        {
-            // Subscribe to event fired when text object has been regenerated.
-            TMPro_EventManager.TEXT_CHANGED_EVENT.Add(ON_TEXT_CHANGED);
-        }
-
-        private void OnDisable()
-        {
-            // UnSubscribe to event fired when text object has been regenerated.
-            TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
-        }
-
-
-        private void Start()
-        {
-            StartCoroutine(AnimateVertexColors());
-        }
-
-        #endregion
     }
 }
